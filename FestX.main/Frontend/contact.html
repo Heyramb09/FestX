@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Help - FestX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles from FestX */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        /* Navbar styles from FestX */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #FF6B00;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #FF6B00;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-signup {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-signup:hover {
+            background-color: #ff8c3f;
+            border-color: #ff8c3f;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .hamburger i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Hero section with modified colors */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/300') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 120px 0 60px;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s;
+        }
+
+        .hero h1 span {
+            color: #FF6B00;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1s;
+        }
+        
+        /* Preserve the original contact page content styling */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .contact-help-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .section-title {
+            color: #FF6B00;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #000 0%, #FF6B00 100%);
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInRight 1s;
+        }
+        
+        .contact-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #343a40;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #FF6B00;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Help Section */
+        .help-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeInLeft 1s;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question:after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+        
+        .faq-item.active .faq-question:after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            display: none;
+            color: #6c757d;
+            padding-left: 5px;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .helpdesk-info {
+            margin-top: 40px;
+        }
+        
+        .helpdesk-info h3 {
+            margin-bottom: 15px;
+            color: #FF6B00;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info-item i {
+            color: #FF6B00;
+            margin-right: 10px;
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-top: 60px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeInUp 1.2s;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .map-placeholder {
+            background-color: #eee;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+        }
+        
+        /* Social Media */
+        .social-media {
+            margin-top: 60px;
+            text-align: center;
+            animation: fadeInUp 1.4s;
+        }
+        
+        .social-media h2 {
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            color: #FF6B00;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, #000 0%, #FF6B00 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(135deg, #000 0%, #FF6B00 100%);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #FF6B00;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .navbar {
+                padding: 20px;
+            }
+            
+            .nav-links a {
+                margin-left: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-help-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+            
+            .nav-links.active, .auth-buttons.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation from FestX -->
+    <nav class="navbar">
+        <a href="landing-page.html" class="logo">Fest<span>X</span></a>
+        <div class="nav-links">
+            <a href="landing-page.html">Home</a>
+            <a href="events-page.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html" class="active">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login-user.html" class="btn btn-login">Login</a>
+            <a href="signup-user.html" class="btn btn-signup">Sign Up</a>
+            <a href="Admin.html" class="btn btn-login">Admin</a>
+        </div>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Contact & <span>Help</span></h1>
+            <p>Get in touch with our team or find answers to your questions</p>
+        </div>
+    </section>
+    
+    <section class="main-content">
+        <div class="container">
+            <div class="contact-help-container">
+                <div class="contact-form">
+                    <h2 class="section-title">Contact Us</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-signup">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="help-section">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">How do I register for TechFest 2025?</div>
+                            <div class="faq-answer">
+                                Registration for TechFest 2025 can be completed through our website. Navigate to the Register page, fill out the registration form, and follow the payment instructions if applicable.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">What are the dates for TechFest 2025?</div>
+                            <div class="faq-answer">
+                                TechFest 2025 will take place from April 15-18, 2025. Check our Schedule page for detailed timings of all events and workshops.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Can I participate in multiple events?</div>
+                            <div class="faq-answer">
+                                Yes, you can participate in multiple events as long as there are no scheduling conflicts. Make sure to check the schedule before registering for multiple events.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Are there any accommodation facilities available?</div>
+                            <div class="faq-answer">
+                                Yes, we provide accommodation facilities for outstation participants. You can select the accommodation option during the registration process.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Is there a refund policy if I cancel my registration?</div>
+                            <div class="faq-answer">
+                                Refunds are available if cancellation is made at least 14 days before the event. A processing fee of 10% will be deducted. No refunds will be issued for cancellations made less than 14 days before the event.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="helpdesk-info">
+                        <h3>Helpdesk Information</h3>
+                        <div class="contact-info-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <p>+1 (555) 123-4567</p>
+                                <p class="text-muted">Mon-Fri, 9:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <p>support@festx.com</p>
+                                <p class="text-muted">We'll respond within 24 hours</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <p>FestX HQ, 123 Innovation Avenue</p>
+                                <p class="text-muted">Silicon Valley, CA 94025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <h2 class="section-title">Find Us</h2>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <p>Interactive map would be displayed here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-media">
+                <h2 class="section-title" style="text-align: center;">Connect With Us</h2>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>FestX</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="sponsors.html">Sponsors</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Events</h4>
+                    <ul>
+                        <li><a href="events.html#technical">Technical Events</a></li>
+                        <li><a href="events.html#cultural">Cultural Events</a></li>
+                        <li><a href="events.html#workshops">Workshops</a></li>
+                        <li><a href="events.html#sports">Sports Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQs</a></li>
+                        <li><a href="guidelines.html">Event Guidelines</a></li>
+                        <li><a href="schedule.html">Schedule</a></li>
+                        <li><a href="contact.html">Help & Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="refund.html">Refund Policy</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 FestX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.auth-buttons').classList.toggle('active');
+        });
+        
+        // Change navbar background on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            }
+        });
+        
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Sending...';
+            
+            setTimeout(() => {
+                alert('Your message has been sent successfully!');
+                contactForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Send Message';
+            }, 1500);
+        });
+        
+        // Add animations when elements come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.contact-form, .help-section, .map-section, .social-media');
+            
+            elements.forEach(elem => {
+                const elemPosition = elem.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elemPosition < screenPosition) {
+                    elem.style.opacity = '1';
+                    elem.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Initially set elements to be invisible
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.contact-form, .help-section, .map-section, .social-media');
+            
+            elements.forEach(elem => {
+                elem.style.opacity = '0';
+                elem.style.transform = 'translateY(20px)';
+                elem.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Trigger animation on initial load
+            setTimeout(animateOnScroll, 300);
+        });
+        
+        // Listen for scroll events
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>

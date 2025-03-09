@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Events | FestX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: #000000;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo span {
+            color: #FF6B00;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #FF6B00;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: #000;
+        }
+        
+        .btn-signup {
+            background-color:transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-signup:hover {
+            background-color: #e66000;
+        }
+        
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Header */
+        .page-header {
+            background-color: #000000;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        /* Search Section */
+        .search-section {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: #666;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #FF6B00;
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            border-bottom: 1px solid #ddd;
+            padding: 0 5%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .category-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            color: #666;
+            position: relative;
+        }
+        
+        .category-tab.active {
+            color: #FF6B00;
+        }
+        
+        .category-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #FF6B00;
+        }
+        
+        .category-tab:hover {
+            color: #FF6B00;
+        }
+        
+        /* Events Grid */
+        .events-container {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 5%;
+        }
+        
+        .category-header {
+            margin-bottom: 2rem;
+            color: #333;
+            text-align: center;
+            font-size: 1.8rem;
+            display: none;
+        }
+        
+        .category-header span {
+            color: #FF6B00;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .event-image {
+            height: 180px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .event-category-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #FF6B00;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .event-details {
+            padding: 1.5rem;
+        }
+        
+        .event-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #333;
+        }
+        
+        .event-info {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .event-info i {
+            color: #FF6B00;
+            font-size: 1rem;
+        }
+        
+        .view-details {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            border: 1px solid #FF6B00;
+            color: #FF6B00;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .view-details:hover {
+            background-color: #FF6B00;
+            color: white;
+        }
+        
+        .no-events {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .category-tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .category-tabs {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 0.5rem;
+            }
+            
+            .category-tab {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="landing-page.html" class="logo">Fest<span>X</span></a>
+        <div class="nav-links">
+            <a href="landing-page.html">Home</a>
+            <a href="events-page.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login-user.html" class="btn btn-login">Login</a>
+            <a href="signup-user.html" class="btn btn-signup">Sign Up</a>
+            <a href="admin.html" class="btn btn-login">Admin</a>
+        </div>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    
+    <header class="page-header">
+        <h1 class="page-title">Discover <span style="color: #FF6B00;">Events</span></h1>
+        <p class="page-subtitle">Explore and register for the most exciting college fest events</p>
+    </header>
+    
+    <section class="search-section">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by college name...">
+        </div>
+    </section>
+    
+    <div class="category-tabs">
+        <button class="category-tab active" data-category="all">All Events</button>
+        <button class="category-tab" data-category="cultural">Cultural</button>
+        <button class="category-tab" data-category="sports">Sports</button>
+        <button class="category-tab" data-category="technical">Technical</button>
+        <button class="category-tab" data-category="workshop">Workshop</button>
+    </div>
+    
+    <div class="events-container">
+        <h2 id="all-header" class="category-header show">All <span>Events</span></h2>
+        <h2 id="cultural-header" class="category-header">Cultural <span>Events</span></h2>
+        <h2 id="sports-header" class="category-header">Sports <span>Events</span></h2>
+        <h2 id="technical-header" class="category-header">Technical <span>Events</span></h2>
+        <h2 id="workshop-header" class="category-header">Workshop <span>Events</span></h2>
+        
+        <div class="events-grid" id="events-grid">
+            <!-- Events will be populated here via JavaScript -->
+        </div>
+    </div>
+    
+    <script>
+        // Event data
+        const eventsData = [
+            // Cultural Events
+            {
+                id: 1,
+                title: "Annual Cultural Festival",
+                college: "MIT College",
+                date: "April 15-17, 2025",
+                category: "cultural",
+                image:"src img href AI workshop.jpeg"categoryHeaders
+            },
+            {
+                id: 2,
+                title: "Dance Competition",
+                college: "Harvard University",
+                date: "March 25, 2025",
+                category: "cultural",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 3,
+                title: "Music Concert",
+                college: "Stanford University",
+                date: "April 5, 2025",
+                category: "cultural",
+                image: "C:\Users\lenovo\Downloads\FestX.main\Frontend\Battle of bands.jpeg"
+            },
+            {
+                id: 4,
+                title: "Theatre Festival",
+                college: "Yale University",
+                date: "May 10, 2025",
+                category: "cultural",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 5,
+                title: "Art Exhibition",
+                college: "MIT College",
+                date: "April 20, 2025",
+                category: "cultural",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 6,
+                title: "Poetry Slam",
+                college: "Columbia University",
+                date: "March 30, 2025",
+                category: "cultural",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 7,
+                title: "Cultural Exchange Program",
+                college: "Princeton University",
+                date: "April 25, 2025",
+                category: "cultural",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 8,
+                title: "Fashion Show",
+                college: "NYU",
+                date: "May 5, 2025",
+                category: "cultural",
+                image: "/api/placeholder/400/320"
+            },
+            
+            // Sports Events
+            {
+                id: 9,
+                title: "Inter-College Basketball Tournament",
+                college: "Duke University",
+                date: "April 10-12, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 10,
+                title: "Swimming Championship",
+                college: "University of Michigan",
+                date: "March 28, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 11,
+                title: "Cricket Tournament",
+                college: "MIT College",
+                date: "April 18-20, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 12,
+                title: "Table Tennis Competition",
+                college: "Harvard University",
+                date: "May 2, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 13,
+                title: "Football League",
+                college: "Stanford University",
+                date: "April 22-30, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 14,
+                title: "Athletics Meet",
+                college: "Yale University",
+                date: "May 15, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 15,
+                title: "Chess Tournament",
+                college: "Princeton University",
+                date: "April 5, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 16,
+                title: "Badminton Championship",
+                college: "Columbia University",
+                date: "April 12, 2025",
+                category: "sports",
+                image: "/api/placeholder/400/320"
+            },
+            
+            // Technical Events
+            {
+                id: 17,
+                title: "Hackathon 2025",
+                college: "MIT College",
+                date: "April 8-10, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 18,
+                title: "Robotics Competition",
+                college: "Stanford University",
+                date: "March 29, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 19,
+                title: "Coding Contest",
+                college: "Harvard University",
+                date: "April 15, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 20,
+                title: "Tech Symposium",
+                college: "Caltech",
+                date: "May 5-6, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 21,
+                title: "AI Conference",
+                college: "Carnegie Mellon University",
+                date: "April 20, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 22,
+                title: "Project Exhibition",
+                college: "MIT College",
+                date: "April 25, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 23,
+                title: "Bug Bounty Contest",
+                college: "Princeton University",
+                date: "March 31, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 24,
+                title: "IoT Showcase",
+                college: "Georgia Tech",
+                date: "April 18, 2025",
+                category: "technical",
+                image: "/api/placeholder/400/320"
+            },
+            
+            // Workshop Events
+            {
+                id: 25,
+                title: "Machine Learning Workshop",
+                college: "Stanford University",
+                date: "April 12, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 26,
+                title: "Web Development Bootcamp",
+                college: "MIT College",
+                date: "March 30, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 27,
+                title: "Entrepreneurship Workshop",
+                college: "Harvard Business School",
+                date: "April 22, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 28,
+                title: "Data Science Workshop",
+                college: "Columbia University",
+                date: "May 8, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 29,
+                title: "Blockchain Technology Workshop",
+                college: "MIT College",
+                date: "April 28, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 30,
+                title: "Graphic Design Workshop",
+                college: "Rhode Island School of Design",
+                date: "April 5, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 31,
+                title: "Robotics Programming Workshop",
+                college: "Carnegie Mellon University",
+                date: "May 12, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            },
+            {
+                id: 32,
+                title: "Content Creation Workshop",
+                college: "NYU",
+                date: "April 15, 2025",
+                category: "workshop",
+                image: "/api/placeholder/400/320"
+            }
+        ];
+        
+        // Function to display events
+        function displayEvents(events) {
+            const eventsGrid = document.getElementById('events-grid');
+            eventsGrid.innerHTML = '';
+            
+            if (events.length === 0) {
+                eventsGrid.innerHTML = '<div class="no-events"><h3>No events found</h3><p>Try a different search term or category</p></div>';
+                return;
+            }
+            
+            events.forEach(event => {
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                
+                const categoryDisplay = {
+                    'cultural': 'Cultural',
+                    'sports': 'Sports',
+                    'technical': 'Technical',
+                    'workshop': 'Workshop'
+                };
+                
+                eventCard.innerHTML = `
+                    <div class="event-image" style="background-image: url('${event.image}')">
+                        <div class="event-category-tag">${categoryDisplay[event.category]}</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 class="event-title">${event.title}</h3>
+                        <div class="event-info">
+                            <i class="fas fa-university"></i>
+                            <span>${event.college}</span>
+                        </div>
+                        <div class="event-info">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>${event.date}</span>
+                        </div>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                `;
+                
+                eventsGrid.appendChild(eventCard);
+            });
+        }
+        
+        // Initial display of all events
+        displayEvents(eventsData);
+        
+        // Category tab functionality
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const categoryHeaders = {
+            'all': document.getElementById('all-header'),
+            'cultural': document.getElementById('cultural-header'),
+            'sports': document.getElementById('sports-header'),
+            'technical': document.getElementById('technical-header'),
+            'workshop': document.getElementById('workshop-header')
+        };
+        
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.getAttribute('data-category');
+                
+                // Update header visibility
+                Object.keys(categoryHeaders).forEach(key => {
+                    categoryHeaders[key].classList.remove('show');
+                });
+                categoryHeaders[category].classList.add('show');
+                
+                // Filter events
+                let filteredEvents;
+                if (category === 'all') {
+                    filteredEvents = eventsData;
+                } else {
+                    filteredEvents = eventsData.filter(event => event.category === category);
+                }
+                
+                // Apply any existing search filter
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput.value.trim() !== '') {
+                    const searchTerm = searchInput.value.trim().toLowerCase();
+                    filteredEvents = filteredEvents.filter(event => 
+                        event.college.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                displayEvents(filteredEvents);
+            });
+        });
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', performSearch);
+        
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+            
+            // Get current active category
+            const activeTab = document.querySelector('.category-tab.active');
+            const category = activeTab.getAttribute('data-category');
+            
+            // Filter by category first
+            let filteredEvents;
+            if (category === 'all') {
+                filteredEvents = eventsData;
+            } else {
+                filteredEvents = eventsData.filter(event => event.category === category);
+            }
+            
+            // Then apply search term filter
+            if (searchTerm !== '') {
+                filteredEvents = filteredEvents.filter(event => 
+                    event.college.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            displayEvents(filteredEvents);
+        }
+        
+        // Mobile menu toggle (for future implementation)
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            // Add mobile menu functionality here
+            alert('Mobile menu - to be implemented');
+        });
+    </script>
+</body>
+</html>

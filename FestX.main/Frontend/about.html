@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About The Fest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: #5928E5;
+            margin-bottom: 1rem;
+        }
+        
+        /* Navigation Bar Styles (from paste.txt) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #FF6B00;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #FF6B00;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-login:hover {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-signup {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-signup:hover {
+            background-color: #ff8c3f;
+            border-color: white;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        
+        .hamburger i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Header Styles - Updated with new colors */
+        header {
+            background-color: #FF6B00;
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(255, 107, 0, 0.7));
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-weight: 800;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .header-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards 0.2s;
+        }
+        
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section {
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            color: #333;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #333, #FF6B00);
+            border-radius: 2px;
+        }
+        
+        /* Theme Section - Updated colors */
+        .theme-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .theme-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .theme-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .theme-image {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #333, #FF6B00);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #FF6B00;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* History Section - Updated colors */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: #e0e0e0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            padding: 2rem 0;
+            position: relative;
+            width: 50%;
+            clear: both;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            float: left;
+            padding-right: 2.5rem;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            float: right;
+            padding-left: 2.5rem;
+            text-align: left;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #FF6B00;
+            border-radius: 50%;
+            top: 2.5rem;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: #FF6B00;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Committee Section - Updated colors */
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .committee-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .committee-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .committee-img {
+            width: 100%;
+            height: 200px;
+            background-color: #e5e5e5;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .committee-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .committee-card:hover .committee-img img {
+            transform: scale(1.05);
+        }
+        
+        .committee-info {
+            padding: 1.5rem;
+        }
+        
+        .committee-name {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+        
+        .committee-role {
+            font-size: 0.9rem;
+            color: #FF6B00;
+            margin-bottom: 1rem;
+        }
+        
+        .committee-bio {
+            font-size: 0.9rem;
+        }
+        
+        /* Faculty Section - Updated colors */
+        .faculty-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .faculty-card {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+        
+        .faculty-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #FF6B00;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .faculty-details {
+            flex: 1;
+        }
+        
+        .faculty-name {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+        
+        .faculty-dept {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Gallery Section - Updated colors */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(255, 107, 0, 0.4));
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-year {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-item:hover .gallery-year {
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px;
+            }
+            
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-links.active, .auth-buttons.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                padding: 20px;
+            }
+            
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 40px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                float: none;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(even) {
+                float: none;
+            }
+            
+            .timeline-item::after {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+                left: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .theme-section,
+            .committee-card,
+            .faculty-card {
+                padding: 1.5rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+        
+        /* Clear fix for timeline */
+        .timeline::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar (from paste.txt) -->
+    <nav class="navbar">
+        <a href="landing-page.html" class="logo">Fest<span>X</span></a>
+        <div class="nav-links">
+            <a href="landing-page.html">Home</a>
+            <a href="events-page.html">Events</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="login-user.html" class="btn btn-login">Login</a>
+            <a href="signup-user.html" class="btn btn-signup">Sign Up</a>
+            <a href="Admin.html" class="btn btn-login">Admin</a>
+        </div>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    
+    <header>
+        <div class="header-content">
+            <h1 class="header-title">About The Fest</h1>
+            <p class="header-subtitle">Celebrating creativity, innovation, and excellence - our annual college cultural and technical extravaganza</p>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <!-- Theme Section -->
+            <section id="theme" class="section">
+                <h2 class="section-title">Fest Theme</h2>
+                <div class="theme-section">
+                    <div class="theme-content">
+                        <div class="theme-text">
+                            <span class="theme-badge">2025 Edition</span>
+                            <h3>Digital Renaissance</h3>
+                            <p>This year's theme "Digital Renaissance" celebrates the fusion of traditional art forms with cutting-edge technology. Just as the Renaissance period marked a rebirth of art, culture, and knowledge, our fest aims to showcase how digital technologies are transforming creative expression and innovation.</p>
+                            <p>Through various events, competitions, and exhibitions, participants will explore how artificial intelligence, virtual reality, blockchain, and other emerging technologies are reshaping our approach to art, music, literature, and scientific discovery.</p>
+                            <p>Join us in this exciting journey where the past meets the future, and where innovation is guided by the timeless principles of human creativity and expression.</p>
+                        </div>
+                        <div class="theme-image">
+                            <!-- Theme illustration would go here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- History Section -->
+            <section id="history" class="section">
+                <h2 class="section-title">History & Previous Editions</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2024</div>
+                            <h3>Cosmic Connections</h3>
+                            <p>Explored the intersections of astronomy, space technology, and human creativity with over 5,000 participants from 120 colleges.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <h3>Sustainable Futures</h3>
+                            <p>Focused on eco-innovation and climate solutions, featuring green technology showcases and zero-waste initiatives.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2022</div>
+                            <h3>Digital Awakening</h3>
+                            <p>Celebrated the post-pandemic return to campus with hybrid events combining physical and virtual experiences.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2021</div>
+                            <h3>Virtual Horizons</h3>
+                            <p>Our first fully virtual fest during the pandemic, reaching participants from over 15 countries.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2020</div>
+                            <h3>Quantum Leap</h3>
+                            <p>Focused on breakthrough technologies and featured renowned speakers from Silicon Valley.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Committee Section -->
+            <section id="committee" class="section">
+                <h2 class="section-title">Organizing Committee</h2>
+                <div class="committee-grid">
+                    <div class="committee-card">
+                        <div class="committee-img">
+                            <!-- Placeholder for committee member image -->
+                        </div>
+                        <div class="committee-info">
+                            <h3 class="committee-name">Aisha Patel</h3>
+                            <div class="committee-role">Festival Chairperson</div>
+                            <p class="committee-bio">Final year Computer Science student with a passion for event management and technology. Previously organized three major hackathons.</p>
+                        </div>
+                    </div>
+                    <div class="committee-card">
+                        <div class="committee-img">
+                            <!-- Placeholder for committee member image -->
+                        </div>
+                        <div class="committee-info">
+                            <h3 class="committee-name">Raj Sharma</h3>
+                            <div class="committee-role">Technical Head</div>
+                            <p class="committee-bio">Third year Electronics Engineering student specializing in robotics and AI applications. Led the college robotics team to national finals.</p>
+                        </div>
+                    </div>
+                    <div class="committee-card">
+                        <div class="committee-img">
+                            <!-- Placeholder for committee member image -->
+                        </div>
+                        <div class="committee-info">
+                            <h3 class="committee-name">Sophia Chen</h3>
+                            <div class="committee-role">Cultural Secretary</div>
+                            <p class="committee-bio">Fine Arts major with experience in organizing music festivals and art exhibitions. Passionate about cross-cultural creative expressions.</p>
+                        </div>
+                    </div>
+                    <div class="committee-card">
+                        <div class="committee-img">
+                            <!-- Placeholder for committee member image -->
+                        </div>
+                        <div class="committee-info">
+                            <h3 class="committee-name">David Okafor</h3>
+                            <div class="committee-role">Marketing Lead</div>
+                            <p class="committee-bio">Business Administration student with expertise in digital marketing and brand partnerships. Secured five major sponsors for this year's fest.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Faculty Section -->
+            <section id="faculty" class="section">
+                <h2 class="section-title">Faculty Coordinators</h2>
+                <div class="faculty-list">
+                    <div class="faculty-card">
+                        <div class="faculty-avatar">DP</div>
+                        <div class="faculty-details">
+                            <div class="faculty-name">Dr. Priya Desai</div>
+                            <div class="faculty-dept">Department of Computer Science</div>
+                        </div>
+                    </div>
+                    <div class="faculty-card">
+                        <div class="faculty-avatar">JK</div>
+                        <div class="faculty-details">
+                            <div class="faculty-name">Prof. James Kim</div>
+                            <div class="faculty-dept">Department of Engineering</div>
+                        </div>
+                    </div>
+                    <div class="faculty-card">
+                        <div class="faculty-avatar">MR</div>
+                        <div class="faculty-details">
+                            <div class="faculty-name">Dr. Maria Rodriguez</div>
+                            <div class="faculty-dept">Department of Fine Arts</div>
+                        </div>
+                    </div>
+                    <div class="faculty-card">
+                        <div class="faculty-avatar">TN</div>
+                        <div class="faculty-details">
+                            <div class="faculty-name">Prof. Thomas Nguyen</div>
+                            <div class="faculty-dept">Department of Business</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Gallery Section -->
+            <section id="gallery" class="section">
+                <h2 class="section-title">Photo Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="2024 Fest Highlight" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-year">2024</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="2024 Fest Highlight" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-year">2024</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="2023 Fest Highlight" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-year">2023</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="2023 Fest Highlight" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-year">2023</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="2022 Fest Highlight" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-year">2022</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/api/placeholder/400/300" alt="2022 Fest Highlight" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <div class="gallery-year">2022</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script>
+        // Intersection Observer for section animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        
+        // JavaScript for hamburger menu (from paste.txt)
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.auth-buttons').classList.toggle('active');
+        });
+        
+        // Change navbar background on scroll (from paste.txt)
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                document.querySelector('.navbar').style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            }
+        });
+    </script>
+</body>
+</html>
