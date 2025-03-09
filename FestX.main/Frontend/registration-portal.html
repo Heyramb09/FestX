@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Event Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --primary: #5928E5;
+            --secondary: #FF7F2A;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #7042FF);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            background: var(--white);
+            color: var(--primary);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            font-size: 20px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            position: relative;
+            transition: 0.3s;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            bottom: 0;
+            left: 0;
+            transition: 0.3s;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .main {
+            padding: 40px 0;
+        }
+        
+        .hero {
+            background: url('/api/placeholder/1200/400') center/cover;
+            height: 300px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            color: var(--white);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 127, 42, 0.3);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 10px 20px rgba(89, 40, 229, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 28px;
+        }
+        
+        h3 {
+            font-size: 22px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            color: #777;
+            position: relative;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            bottom: -2px;
+            left: 0;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(89, 40, 229, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .team-members {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+        
+        .member {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .member-delete {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ff4d4f;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .drop-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        .drop-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .drop-area p {
+            margin-top: 10px;
+            color: #777;
+        }
+        
+        .file-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .file-name {
+            display: flex;
+            align-items: center;
+        }
+        
+        .file-icon {
+            margin-right: 10px;
+            width: 30px;
+            height: 40px;
+            background: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            font-size: 20px;
+            color: #777;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-method {
+            background: #f9f9f9;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .payment-method.active {
+            border-color: var(--primary);
+            background: rgba(89, 40, 229, 0.05);
+        }
+        
+        .payment-method-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .payment-method-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .card-details {
+            display: none;
+        }
+        
+        .card-details.active {
+            display: block;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 40px;
+            border-radius: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+        }
+        
+        .confirmation {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .confirmation h2 {
+            margin-bottom: 15px;
+        }
+        
+        .confirmation-details {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .confirmation-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .confirmation-key {
+            font-weight: 600;
+            color: #777;
+        }
+        
+        .share-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .share-link {
+            width: 40px;
+            height: 40px;
+            background: #f9f9f9;
+            color: #777;
+            margin: 0 10px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+        }
+        
+        .share-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .footer-brand h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+        
+        .footer-brand p {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        
+        .footer-heading {
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .progress-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            height: 2px;
+            background: #ddd;
+            left: 50%;
+        }
+        
+        .progress-step.active:not(:last-child):after {
+            background: var(--primary);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: #ddd;
+            color: #777;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+            z-index: 1;
+            transition: 0.3s;
+        }
+        
+        .progress-step.active .step-number {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .step-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #777;
+        }
+        
+        .progress-step.active .step-label {
+            color: var(--primary);
+        }
+        
+        .step-content {
+            display: none;
+        }
+        
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 991px) {
+            .payment-methods {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 15px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .step-label {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .progress-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">R</div>
+                <span>CampusReg</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#landing-page.html">Home</a></li>
+                    <li><a href="#events-page.html">Events</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="main">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Tech Fest 2025</h1>
+                    <p>Join the biggest tech event on campus. Register now to showcase your talent and win exciting prizes!</p>
+                    <a href="#registration" class="btn">Register Now</a>
+                </div>
+            </div>
+            
+            <div class="card" id="registration">
+                <div class="progress-container">
+                    <div class="progress-step active">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Registration Type</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Personal Info</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Documents</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">5</div>
+                        <div class="step-label">Confirmation</div>
+                    </div>
+                </div>
+                
+                <div class="step-content active" id="step1">
+                    <h2>Choose Registration Type</h2>
+                    <div class="tabs">
+                        <div class="tab active" data-tab="individual">Individual Registration</div>
+                        <div class="tab" data-tab="team">Team Registration</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="individual">
+                        <p>Register as an individual participant for the Tech Fest 2025. Showcase your skills and compete for exciting prizes.</p>
+                        <div class="form-group">
+                            <label for="event-type">Select Event</label>
+                            <select id="event-type">
+                                <option value="">-- Select Event --</option>
+                                <option value="hackathon">Hackathon</option>
+                                <option value="codingCompetition">Coding Competition</option>
+                                <option value="projectShowcase">Project Showcase</option>
+                                <option value="techQuiz">Tech Quiz</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="team">
+                        <p>Register as a team of 2-5 members for collaborative events at Tech Fest 2025.</p>
+                        <div class="form-group">
+                            <label for="team-event-type">Select Event</label>
+                            <select id="team-event-type">
+                                <option value="">-- Select Event --</option>
+                                <option value="hackathon">Hackathon</option>
+                                <option value="projectShowcase">Project Showcase</option>
+                                <option value="robowars">Robo Wars</option>
+                                <option value="businessPitch">Business Pitch</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="team-name">Team Name</label>
+                            <input type="text" id="team-name" placeholder="Enter your team name">
+                        </div>
+                        <div class="form-group">
+                            <label for="team-size">Team Size</label>
+                            <select id="team-size">
+                                <option value="2">2 Members</option>
+                                <option value="3">3 Members</option>
+                                <option value="4">4 Members</option>
+                                <option value="5">5 Members</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <span></span>
+                        <button class="btn btn-primary next-step">Continue</button>
+                    </div>
+                </div>
+                
+                <div class="step-content" id="step2">
+                    <h2 id="personal-info-title">Personal Information</h2>
+                    
+                    <div id="individual-form">
+                        <div class="grid">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" placeholder="Your first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" placeholder="Your last name">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="Your email address">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" placeholder="Your phone number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="institution">Institution/University</label>
+                            <input type="text" id="institution" placeholder="Your institution or university name">
+                        </div>
+                        <div class="grid">
+                            <div class="form-group">
+                                <label for="student-id">Student ID</label>
+                                <input type="text" id="student-id" placeholder="Your student ID number">
+                            </div>
+                            <div class="form-group">
+                                <label for="course">Course/Department</label>
+                                <input type="text" id="course" placeholder="Your course or department">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="team-form" style="display: none;">
+                        <h3>Team Leader Information</h3>
+                        <div class="grid">
+                            <div class="form-group">
+                                <label for="team-leader-first-name">First Name</label>
+                                <input type="text" id="team-leader-first-name" placeholder="Team leader's first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="team-leader-last-name">Last Name</label>
+                                <input type="text" id="team-leader-last-name" placeholder="Team leader's last name">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="form-group">
+                                <label for="team-leader-email">Email Address</label>
+                                <input type="email" id="team-leader-email" placeholder="Team leader's email address">
+                            </div>
+                            <div class="form-group">
+                                <label for="team-leader-phone">Phone Number</label>
+                                <input type="tel" id="team-leader-phone" placeholder="Team leader's phone number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="team-leader-institution">Institution/University</label>
+                            <input type="text" id="team-leader-institution" placeholder="Team leader's institution">
+                        </div>
+                        
+                        <div class="team-members" id="team-members-container">
+                            <h3>Team Members</h3>
+                            <p>Add information for each team member below</p>
+                            
+                            <div class="member">
+                                <div class="member-delete">×</div>
+                                <div class="grid">
+                                    <div class="form-group">
+                                        <label for="member-name-1">Full Name</label>
+                                        <input type="text" id="member-name-1" placeholder="Team member's full name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="member-email-1">Email Address</label>
+                                        <input type="email" id="member-email-1" placeholder="Team member's email">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="form-group">
+                                        <label for="member-institution-1">Institution</label>
+                                        <input type="text" id="member-institution-1" placeholder="Team member's institution">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="member-id-1">Student ID</label>
+                                        <input type="text" id="member-id-1" placeholder="Team member's student ID">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-outline" id="add-member">+ Add Team Member</button>
+                        </div>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn-outline prev-step">Back</button>
+                        <button class="btn btn-primary next-step">Continue</button>
+                    </div>
+                </div>
+                
+                <div class="step-content" id="step3">
+                    <h2>Document Upload</h2>
+                    <p>Please upload the required documents for verification.</p>
+                    
+                    <div class="form-group">
+                        <label>ID Proof (Student ID or Government ID)</label>
+                        <div class="drop-area" id="id-drop-area">
+                            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>Drag & Drop files here or <span style="color: var(--primary); font-weight: 600;">Browse</span></p>
+                            <input type="file" id="id-file" style="display: none;">
+                        </div>
+                        <ul class="file-list" id="id-file-list"></ul>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Event Specific Documents (Project Abstract, Presentation, etc.)</label>
+                        <div class="drop-area" id="event-drop-area">
+                            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>Drag & Drop files here or <span style="color: var(--primary); font-weight: 600;">Browse</span></p>
+                            <input type="file" id="event-file" style="display: none;">
+                        </div>
+                        <ul class="file-list" id="event-file-list"></ul>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">I certify that all the information provided is correct and I agree to the terms & conditions</label>
+                    </div>
+                    
+                    <div class="step-buttons">
+                        <button class="btn btn
